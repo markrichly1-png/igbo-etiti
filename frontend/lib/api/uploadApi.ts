@@ -19,7 +19,7 @@ export const uploadApi = {
     }
   ) {
     const response = await axios.post(
-      `${getBackendUrl()}/api/admin/uploads/news`,
+      `${getBackendUrl()}/api2/admin/uploads/news`,
       payload,
       { headers: adminHeaders(token) }
     )
@@ -38,7 +38,7 @@ export const uploadApi = {
     }
   ) {
     const response = await axios.post(
-      `${getBackendUrl()}/api/admin/uploads/info`,
+      `${getBackendUrl()}/api2/admin/uploads/info`,
       payload,
       { headers: adminHeaders(token) }
     )
@@ -54,7 +54,7 @@ export const uploadApi = {
     }
   ) {
     const response = await axios.post(
-      `${getBackendUrl()}/api/admin/uploads/gallery`,
+      `${getBackendUrl()}/api2/admin/uploads/gallery`,
       payload,
       { headers: adminHeaders(token) }
     )
@@ -72,7 +72,7 @@ export const uploadApi = {
     }
   ) {
     const response = await axios.post(
-      `${getBackendUrl()}/api/admin/uploads/archive`,
+      `${getBackendUrl()}/api2/admin/uploads/archive`,
       payload,
       { headers: adminHeaders(token) }
     )

@@ -38,7 +38,7 @@ export default function AnonymousMessagePage() {
     }
 
     try {
-      const response = await fetch('/api/anonymous-message', {
+      const response = await fetch('/api2/anonymous-message', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -12,12 +12,12 @@ export const adminApi = {
     password: string
     role?: string
   }) {
-    const response = await axios.post(`${getBackendUrl()}/api/admin/auth/register`, payload)
+    const response = await axios.post(`${getBackendUrl()}/api2/admin/auth/register`, payload)
     return response.data
   },
 
   async login(email: string, password: string) {
-    const response = await axios.post(`${getBackendUrl()}/api/admin/auth/login`, {
+    const response = await axios.post(`${getBackendUrl()}/api2/admin/auth/login`, {
       email,
       password,
     })
@@ -25,56 +25,56 @@ export const adminApi = {
   },
 
   async getMe(token: string) {
-    const response = await axios.get(`${getBackendUrl()}/api/admin/auth/me`, {
+    const response = await axios.get(`${getBackendUrl()}/api2/admin/auth/me`, {
       headers: authHeaders(token),
     })
     return response.data
   },
 
   async getDashboardStats(token: string) {
-    const response = await axios.get(`${getBackendUrl()}/api/admin/dashboard/stats`, {
+    const response = await axios.get(`${getBackendUrl()}/api2/admin/dashboard/stats`, {
       headers: authHeaders(token),
     })
     return response.data
   },
 
   async getApplications(token: string) {
-    const response = await axios.get(`${getBackendUrl()}/api/admin/applications`, {
+    const response = await axios.get(`${getBackendUrl()}/api2/admin/applications`, {
       headers: authHeaders(token),
     })
     return response.data
   },
 
   async getPayments(token: string) {
-    const response = await axios.get(`${getBackendUrl()}/api/admin/payments`, {
+    const response = await axios.get(`${getBackendUrl()}/api2/admin/payments`, {
       headers: authHeaders(token),
     })
     return response.data
   },
 
   async listStaff(token: string) {
-    const response = await axios.get(`${getBackendUrl()}/api/admin/staff`, {
+    const response = await axios.get(`${getBackendUrl()}/api2/admin/staff`, {
       headers: authHeaders(token),
     })
     return response.data
   },
 
   async createStaff(token: string, payload: Record<string, unknown>) {
-    const response = await axios.post(`${getBackendUrl()}/api/admin/staff`, payload, {
+    const response = await axios.post(`${getBackendUrl()}/api2/admin/staff`, payload, {
       headers: authHeaders(token),
     })
     return response.data
   },
 
   async updateStaff(token: string, id: string, payload: Record<string, unknown>) {
-    const response = await axios.put(`${getBackendUrl()}/api/admin/staff/${id}`, payload, {
+    const response = await axios.put(`${getBackendUrl()}/api2/admin/staff/${id}`, payload, {
       headers: authHeaders(token),
     })
     return response.data
   },
 
   async deleteStaff(token: string, id: string) {
-    const response = await axios.delete(`${getBackendUrl()}/api/admin/staff/${id}`, {
+    const response = await axios.delete(`${getBackendUrl()}/api2/admin/staff/${id}`, {
       headers: authHeaders(token),
     })
     return response.data

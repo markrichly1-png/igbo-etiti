@@ -60,7 +60,7 @@ function PaymentSummaryContent() {
 
     const handlePoll =async()=>{
       if (!user) return;
-      const response = await axios.get(`https://igsl-website.onrender.com/query/status/${user.email}`,
+      const response = await axios.get(`https://igbo-etiti.onrender.com/query/status/${user.email}`,
         {headers:{'Authorization':`Bearer ${token}`}}
       );
 
@@ -124,7 +124,7 @@ else{
       }
 
       const response = await axios.post(
-        'https://igsl-website.onrender.com/api/auth/refresh-token',
+        'https://igbo-etiti.onrender.com/api2/auth/refresh-token',
         { refreshToken }
       );
 
@@ -190,13 +190,13 @@ else{
 
       try {
         const dbResponse = await axios.post(
-          'https://igsl-website.onrender.com/api/applications',
+          'https://igbo-etiti.onrender.com/api2/applications',
           applicationPayload,
           { headers: { 'Authorization': `Bearer ${token}` } }
         );
 
         const transaResponse = await axios.post(
-          'https://igsl-website.onrender.com/api/transactions/save',
+          'https://igbo-etiti.onrender.com/api2/transactions/save',
           transactionPayload,
           { headers: { 'Authorization': `Bearer ${token}` } }
         );
@@ -271,7 +271,7 @@ else{
 
           try {
             const dbResponse = await axios.post(
-              'https://igsl-website.onrender.com/api/transactions/save',
+              'https://igbo-etiti.onrender.com/api2/transactions/save',
               transactionPayload,
               { headers: { 'Authorization': `Bearer ${currentToken}` } }
             );

@@ -2,7 +2,7 @@ import { IMAGEKIT_CONFIG, type ImageKitUploadResult } from '@/lib/imagekit/confi
 import { getBackendUrl } from '@/lib/api/backendUrl'
 
 async function getImageKitUploadAuth() {
-  const response = await fetch('https://igsl-website.onrender.com/api/upload-auth')
+  const response = await fetch('https://igbo-etiti.onrender.com/api2/upload-auth')
   const data = await response.json().catch(() => ({}))
 
   if (!response.ok || !data?.success || !data?.token || !data?.signature || !data?.expire) {

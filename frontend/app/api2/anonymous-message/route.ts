@@ -51,7 +51,7 @@ export async function POST(request: NextRequest) {
     const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3001'
     
     try {
-      const backendResponse = await fetch(`${backendUrl}/api/anonymous-message`, {
+      const backendResponse = await fetch(`${backendUrl}/api2/anonymous-message`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -5,5 +5,5 @@ export function getBackendUrl(): string {
   if (typeof window !== 'undefined' && window.location.hostname === 'localhost') {
     return 'http://localhost:3001'
   }
-  return 'https://igsl-website.onrender.com'
+  return 'https://igbo-etiti.onrender.com'
 }

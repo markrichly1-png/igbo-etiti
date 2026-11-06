@@ -11,7 +11,7 @@ import { Label } from '@/components/ui/label'
 import { toast } from 'sonner'
 import { Eye, EyeOff, ShieldCheck, Lock, UserCheck } from 'lucide-react'
 
-const BACKEND_URL = 'https://igsl-website.onrender.com'
+const BACKEND_URL = 'https://igbo-etiti.onrender.com'
 
 interface LoginFormData {
   username: string
@@ -72,7 +72,7 @@ export function LoginForm() {
 
     try {
       // Call backend Express server directly with axios
-      const response = await axios.post(`${BACKEND_URL}/api/auth/login`, {
+      const response = await axios.post(`${BACKEND_URL}/api2/auth/login`, {
         username: formData.username,
         password: formData.password,
       });

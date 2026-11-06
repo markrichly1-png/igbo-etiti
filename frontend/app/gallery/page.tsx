@@ -34,7 +34,7 @@ export default function GalleryPage() {
       }
 
       const response = await fetch(
-        `${getBackendUrl()}/api/news?type=GALLERY&page=${pageNumber}&limit=${GALLERY_PAGE_SIZE}`,
+        `${getBackendUrl()}/api2/news?type=GALLERY&page=${pageNumber}&limit=${GALLERY_PAGE_SIZE}`,
         {
           cache: 'no-store',
           next: { revalidate: 0 },

@@ -12,7 +12,7 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { toast } from 'sonner'
 import { Eye, EyeOff, Lock, Mail, User, Phone } from 'lucide-react'
 
-const BACKEND_URL = 'https://igsl-website.onrender.com'
+const BACKEND_URL = 'https://igbo-etiti.onrender.com'
 
 interface RegisterFormData {
   username: string
@@ -111,7 +111,7 @@ export function RegisterForm() {
 
     try {
       // Call backend Express server directly with axios
-      const response = await axios.post(`${BACKEND_URL}/api/auth/register`, {
+      const response = await axios.post(`${BACKEND_URL}/api2/auth/register`, {
         username: formData.username,
         email: formData.email,
         password: formData.password,

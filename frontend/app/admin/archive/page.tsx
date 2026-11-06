@@ -30,7 +30,7 @@ export default function ArchiveManagementPage() {
 
     const fetchArchiveItems = async () => {
       try {
-        const response = await fetch(`${getBackendUrl()}/api/archive`, { cache: 'no-store' })
+        const response = await fetch(`${getBackendUrl()}/api2/archive`, { cache: 'no-store' })
         const payload = await response.json().catch(() => ({ data: [] }))
 
     

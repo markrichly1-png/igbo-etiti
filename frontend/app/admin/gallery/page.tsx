@@ -37,7 +37,7 @@ export default function AdminGalleryPage() {
         setIsLoading(true)
         setError(null)
 
-        const response = await fetch(`${getBackendUrl()}/api/news?type=GALLERY`, {
+        const response = await fetch(`${getBackendUrl()}/api2/news?type=GALLERY`, {
           cache: 'no-store',
           next: { revalidate: 0 },
         })
@@ -130,7 +130,7 @@ export default function AdminGalleryPage() {
 
     try {
       setIsSaving(true)
-      const response = await fetch(`${getBackendUrl()}/api/admin/uploads/gallery/${item.id}`, {
+      const response = await fetch(`${getBackendUrl()}/api2/admin/uploads/gallery/${item.id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -179,7 +179,7 @@ export default function AdminGalleryPage() {
 
     try {
       setIsSaving(true)
-      const response = await fetch(`${getBackendUrl()}/api/admin/uploads/gallery/${editingItem.id}`, {
+      const response = await fetch(`${getBackendUrl()}/api2/admin/uploads/gallery/${editingItem.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

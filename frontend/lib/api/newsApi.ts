@@ -34,7 +34,7 @@ function normalizeNewsItem(item: any): BlogPost | null {
 }
 
 async function fetchNewsResponse(page = 1, limit = 0) {
-  const url = new URL(`${getBackendUrl()}/api/news`)
+  const url = new URL(`${getBackendUrl()}/api2/news`)
   url.searchParams.set('type', 'NEWS')
   url.searchParams.set('page', String(page))
   if (limit > 0) {
