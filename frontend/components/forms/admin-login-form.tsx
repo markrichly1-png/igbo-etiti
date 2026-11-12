@@ -5,7 +5,6 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import axios from 'axios'
 import { toast } from 'sonner'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -15,7 +14,6 @@ import {
   ADMIN_TOKEN_KEY,
   ADMIN_USER_KEY,
 } from '@/lib/api/adminApi'
-import { Shield } from 'lucide-react'
 
 export function AdminLoginForm() {
   const router = useRouter()
@@ -54,77 +52,56 @@ export function AdminLoginForm() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background/50 via-background to-primary/5 flex items-center justify-center p-4">
-       <Link href="/" className="flex items-center gap-3 absolute top-8 left-8 font-bold text-xl hover:opacity-80 transition-opacity">
-           <div className="w-12 h-12 bg-white relative overflow-hidden rounded-full flex items-center justify-center shadow-md">
-            <div className="w-20 h-20 relative flex items-center justify-center rounded">
-              <img 
-                src="/coatOfArm.png" 
-                alt="Nigerian Coat of Arms" 
-                className="object-cover relative"
-              />
-            </div>
-            </div>
-            
-            <span className="sm:inline text-gray-700 dark:text-gray-300">Home</span>
-          </Link>
-      <Card className="w-full max-w-md border-primary/20 shadow-xl">
-        <CardHeader className="text-center space-y-2">
-          <div className="mx-auto w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-            <Shield className="w-6 h-6 text-primary" />
-          </div>
-          <CardTitle className="text-2xl">Admin Access</CardTitle>
-          <CardDescription>
-            Authorized Igbo-Etiti staff only. This is separate from citizen login.
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            {errors.general && (
-              <p className="text-sm text-destructive text-center">{errors.general}</p>
-            )}
-            <div className="space-y-2">
-              <Label htmlFor="admin-email">Email</Label>
-              <Input
-                id="admin-email"
-                type="email"
-                autoComplete="username"
-                className='border-gray-700/50 dark:border-gray-300/50'
-                value={formData.email}
-                onChange={(e) => setFormData((p) => ({ ...p, email: e.target.value }))}
-                placeholder="admin@igsl.gov.ng"
-              />
-              {errors.email && <p className="text-xs text-destructive">{errors.email}</p>}
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="admin-password">Password</Label>
-              <Input
-                id="admin-password"
-                type="password"
-                autoComplete="current-password"
-                className='border-gray-700/50 dark:border-gray-300/50'
-                value={formData.password}
-                onChange={(e) => setFormData((p) => ({ ...p, password: e.target.value }))}
-              />
-              {errors.password && <p className="text-xs text-destructive">{errors.password}</p>}
-            </div>
-            <Button type="submit" className="w-full" disabled={isLoading}>
-              {isLoading ? 'Signing in…' : 'Sign in'}
-            </Button>
-            <p className="text-center text-sm text-foreground/70">
-              Need an admin account?{' '}
-              <a href="https://wa.me/2349036202766" className="text-primary underline hover:text-primary/80">
-                Contact IT Department
-              </a>
-            </p>
-            <p className="text-center text-sm text-foreground/70">
-              <Link href="/" className="text-primary hover:underline">
-                Back to Home
-              </Link>
-            </p>
-          </form>
-        </CardContent>
-      </Card>
-    </div>
+    <form onSubmit={handleSubmit} className="space-y-5">
+      {errors.general && <div className="auth-error">{errors.general}</div>}
+
+      <div className="auth-field">
+        <Label htmlFor="admin-email">Official email</Label>
+        <Input
+          id="admin-email"
+          type="email"
+          autoComplete="username"
+          value={formData.email}
+          onChange={(e) => setFormData((p) => ({ ...p, email: e.target.value }))}
+          placeholder="name@igboetiti.gov.ng"
+          className={errors.email ? 'border-destructive' : ''}
+        />
+        {errors.email && <p className="text-xs font-medium text-destructive">{errors.email}</p>}
+      </div>
+
+      <div className="auth-field">
+        <Label htmlFor="admin-password">Password</Label>
+        <Input
+          id="admin-password"
+          type="password"
+          autoComplete="current-password"
+          value={formData.password}
+          onChange={(e) => setFormData((p) => ({ ...p, password: e.target.value }))}
+          className={errors.password ? 'border-destructive' : ''}
+        />
+        {errors.password && <p className="text-xs font-medium text-destructive">{errors.password}</p>}
+      </div>
+
+      <Button
+        type="submit"
+        className="h-11 w-full rounded-sm bg-[var(--gold)] font-semibold text-[#111] hover:bg-[var(--gold)]/90"
+        disabled={isLoading}
+      >
+        {isLoading ? 'Signing in…' : 'Sign in'}
+      </Button>
+
+      <p className="text-center text-sm text-muted-foreground">
+        Need access?{' '}
+        <a href="https://wa.me/2349036202766" className="font-semibold text-[var(--gold)] hover:underline">
+          Contact IT
+        </a>
+      </p>
+      <p className="text-center text-xs text-muted-foreground">
+        Citizen?{' '}
+        <Link href="/auth/login" className="font-semibold text-foreground hover:text-[var(--gold)]">
+          Use the public login
+        </Link>
+      </p>
+    </form>
   )
 }

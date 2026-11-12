@@ -364,6 +364,25 @@ class AdminService {
 
     return { payments, transactions }
   }
+
+  static async listAnonymousMessages() {
+    return prisma.anonymousMessage.findMany({
+      orderBy: { submittedAt: 'desc' },
+      select: {
+        id: true,
+        fullName: true,
+        email: true,
+        phone: true,
+        message: true,
+        category: true,
+        status: true,
+        submittedAt: true,
+        createdAt: true,
+        reviewedAt: true,
+        reviewNote: true,
+      },
+    })
+  }
 }
 
 module.exports = AdminService

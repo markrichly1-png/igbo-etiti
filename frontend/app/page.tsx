@@ -19,8 +19,8 @@ export default function Home() {
         <HeroSection />
         <ServicesSection />
         <section className="landing-band">
-          <div className="landing-split">
-            <ChairmanMessage />
+          <div className="landing-band-content">
+            {/* <ChairmanMessage /> */}
             <StatsSection />
           </div>
         </section>

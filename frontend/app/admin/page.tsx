@@ -11,6 +11,7 @@ import {
   Clock,
   TrendingUp,
   Users,
+  MessageCircle,
 } from 'lucide-react'
 import {
   adminApi,
@@ -187,6 +188,12 @@ export default function AdminDashboard() {
                   <Link href="/admin/staff">
                     <Users className="mr-2 w-4 h-4" />
                     Manage Staff
+                  </Link>
+                </Button>
+                <Button className="w-full justify-start" size="lg" variant="outline" asChild>
+                  <Link href="/admin/messages">
+                    <MessageCircle className="mr-2 w-4 h-4" />
+                    View Anonymous Messages
                   </Link>
                 </Button>
               </div>

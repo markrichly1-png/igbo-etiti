@@ -197,30 +197,32 @@ export function IdentificationForm({ onSubmit }: IdentificationFormProps) {
                       <SelectValue placeholder="Select your ward" />
                     </SelectTrigger>
                     <SelectContent>
-                      {
-                      [
-                        'Alor-Agu',
-                        'Amebo/Hausa/Yoruba',
-                        'Ezema Ward',
-                        'Echara/Isiagu Ward',
-                        'Iheaka (Ugo Akoyi)',
-                        'Iheaka (Likki/Akutara Ward)',
-                        'Iheakpu (Ezzi Ngwu Ward)',
-                        'Iheakpu (Ajuona Ogbagu Ward)',
-                        'Itchi/Uwani I',
-                        'Itchi/Uwani II',
-                        'Nkalagu Obukpa',
-                        'Ovoko (Ajuona Ward)',
-                        'Ovoko (Umuelo/Ovoko Agu Ward)',
-                        'Ovoko (Umulolo Ward)',
-                        'Uhunowerre',
-                        'Unadu'
-                      ].map((it,i) => 
-                        <SelectItem
-                        key={i}>
-                       {it}
+                      {[
+                        'Aku I',
+                        'Aku II',
+                        'Aku III',
+                        'Aku IV',
+                        'Aku V',
+                        'Ekwegbe I',
+                        'Ekwegbe II',
+                        'Ohodo I',
+                        'Ohodo II',
+                        'Ozalla I',
+                        'Ozalla II',
+                        'Diogbe/Umunko',
+                        'Ikolo/Ohebe',
+                        'Onyohor/Ochima/Idoha',
+                        'Ejuona/Udueme',
+                        'Ukehe I',
+                        'Ukehe II',
+                        'Ukehe III',
+                        'Ukehe IV',
+                        'Ukehe V',
+                      ].map((ward) => (
+                        <SelectItem key={ward} value={ward}>
+                          {ward}
                         </SelectItem>
-                      )}
+                      ))}
                     </SelectContent>
                   </Select>
                 </div>

@@ -224,17 +224,224 @@
   .landing-hero {
     display: grid;
     gap: 2.5rem;
-    align-items: stretch;
-    padding-block: 3.5rem 4rem;
+    align-items: center;
+    padding-block: 2.75rem 3.25rem;
   }
 
   @media (min-width: 960px) {
     .landing-hero {
-      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
-      gap: 4rem;
-      padding-block: 5rem 5.5rem;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+      gap: 3.5rem;
+      padding-block: 3.75rem 4.25rem;
       min-height: calc(100svh - 4.25rem);
     }
+  }
+
+  .hero-watermark {
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 88% 8%, color-mix(in oklch, var(--gold) 22%, transparent), transparent 46%),
+      radial-gradient(ellipse at 4% 92%, color-mix(in oklch, var(--faded-green) 18%, transparent), transparent 42%);
+  }
+
+  .hero-watermark::after {
+    content: '';
+    position: absolute;
+    right: -6rem;
+    top: 12%;
+    width: 28rem;
+    height: 28rem;
+    border-radius: 999px;
+    border: 1px solid color-mix(in oklch, var(--gold) 28%, transparent);
+    opacity: 0.55;
+  }
+
+  .hero-facts {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem 1.25rem;
+    margin-top: 2.25rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  @media (min-width: 640px) {
+    .hero-facts {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  .hero-facts dt {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted-foreground);
+  }
+
+  .hero-facts dd {
+    margin-top: 0.35rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  .hero-stage {
+    display: grid;
+    gap: 0;
+    min-height: 32rem;
+    border: 1px solid color-mix(in oklch, var(--gold) 28%, var(--border));
+    background: var(--card);
+    box-shadow: 0 24px 50px rgba(40, 24, 4, 0.1);
+  }
+
+  .hero-portrait {
+    position: relative;
+    min-height: 22rem;
+    overflow: hidden;
+    color: white;
+  }
+
+  @media (min-width: 960px) {
+    .hero-portrait {
+      min-height: 26rem;
+    }
+  }
+
+  .hero-portrait__shade {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(10, 8, 4, 0.05) 28%, rgba(10, 8, 4, 0.82) 100%);
+  }
+
+  .hero-portrait__seal {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    height: 4.25rem;
+    width: 4.25rem;
+    object-fit: contain;
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.35));
+  }
+
+  .hero-portrait__caption {
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    padding: 1.25rem 1.35rem 1.4rem;
+  }
+
+  .hero-desk {
+    display: grid;
+    border-top: 1px solid var(--border);
+  }
+
+  .hero-desk__link {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    padding: 0.95rem 1.15rem;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.2s ease;
+  }
+
+  .hero-desk__link:last-child {
+    border-bottom: 0;
+  }
+
+  .hero-desk__link:hover {
+    background: color-mix(in oklch, var(--gold) 10%, white);
+  }
+
+  .hero-desk__index {
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    color: var(--gold);
+  }
+
+  .auth-shell {
+    display: grid;
+    min-height: 100svh;
+    background: var(--paper);
+  }
+
+  @media (min-width: 960px) {
+    .auth-shell {
+      grid-template-columns: minmax(20rem, 0.9fr) minmax(0, 1.1fr);
+    }
+  }
+
+  .auth-aside {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 1.25rem;
+    background: var(--ink);
+    color: white;
+  }
+
+  @media (min-width: 960px) {
+    .auth-aside {
+      padding: 2rem 2.25rem 2.5rem;
+      min-height: 100svh;
+      background:
+        linear-gradient(165deg, rgba(12, 10, 6, 0.55), rgba(12, 10, 6, 0.82)),
+        url('/lgaChairman.png') center 12% / cover no-repeat;
+    }
+  }
+
+  .auth-aside__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.82);
+    transition: color 0.2s ease;
+  }
+
+  .auth-aside__link:hover {
+    color: var(--gold);
+  }
+
+  .auth-main {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 1.5rem 1rem 2.5rem;
+  }
+
+  @media (min-width: 960px) {
+    .auth-main {
+      align-items: center;
+      padding: 3rem 2rem;
+    }
+  }
+
+  .auth-card {
+    width: 100%;
+    max-width: 36rem;
+  }
+
+  .auth-card [data-slot='input'] {
+    height: 2.75rem;
+  }
+
+  .auth-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+
+  .auth-error {
+    padding: 0.75rem 0.9rem;
+    border: 1px solid color-mix(in oklch, var(--destructive) 35%, var(--border));
+    background: color-mix(in oklch, var(--destructive) 8%, white);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--destructive);
   }
 
   .landing-split {

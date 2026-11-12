@@ -52,6 +52,13 @@ export const adminApi = {
     return response.data
   },
 
+  async getAnonymousMessages(token: string) {
+    const response = await axios.get(`${getBackendUrl()}/api2/admin/anonymous-messages`, {
+      headers: authHeaders(token),
+    })
+    return response.data
+  },
+
   async listStaff(token: string) {
     const response = await axios.get(`${getBackendUrl()}/api2/admin/staff`, {
       headers: authHeaders(token),

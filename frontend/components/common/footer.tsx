@@ -45,11 +45,11 @@ export function Footer() {
             <ul className="space-y-3 text-sm text-muted-foreground">
               <li className="flex items-start gap-2">
                 <Phone size={16} className="mt-0.5 flex-shrink-0 text-[var(--gold)]" />
-                <span>+234 810 268 7279</span>
+                <span>+234 903 620 2766</span>
               </li>
               <li className="flex items-start gap-2">
                 <Mail size={16} className="mt-0.5 flex-shrink-0 text-[var(--gold)]" />
-                <span>info@igboezesouth.com</span>
+                <span>info@igboetiti.com</span>
               </li>
               <li className="flex items-start gap-2">
                 <MapPin size={16} className="mt-0.5 flex-shrink-0 text-[var(--gold)]" />

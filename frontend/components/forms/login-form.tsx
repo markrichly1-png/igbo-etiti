@@ -4,12 +4,11 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import axios from 'axios'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { toast } from 'sonner'
-import { Eye, EyeOff, ShieldCheck, Lock, UserCheck } from 'lucide-react'
+import { Eye, EyeOff } from 'lucide-react'
 
 const BACKEND_URL = 'https://igbo-etiti.onrender.com'
 
@@ -105,141 +104,77 @@ export function LoginForm() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 flex items-center justify-center p-4">
-      <Link href="/" className="flex items-center gap-3 font-bold text-xl top-5 left-10 absolute hidden md:block md:flex hover:opacity-80 transition-opacity">
-            <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center p-1 shadow-md">
-              <img 
-                src="/coatOfArm.png" 
-                alt="Nigerian Coat of Arms" 
-                className="w-10 h-10"
-              />
-            </div>
-            <span className="sm:inline text-gray-700 dark:text-gray-300">Igbo-Etiti</span>
+    <form onSubmit={handleSubmit} className="space-y-5">
+      {errors.general && <div className="auth-error">{errors.general}</div>}
+
+      <div className="auth-field">
+        <Label htmlFor="username">Username or email</Label>
+        <Input
+          id="username"
+          name="username"
+          type="text"
+          placeholder="Enter your username or email"
+          value={formData.username}
+          onChange={handleInputChange}
+          className={errors.username ? 'border-destructive' : ''}
+          disabled={isLoading}
+          autoComplete="username"
+        />
+        {errors.username && <p className="text-xs font-medium text-destructive">{errors.username}</p>}
+      </div>
+
+      <div className="auth-field">
+        <div className="flex items-center justify-between gap-3">
+          <Label htmlFor="password">Password</Label>
+          <Link href="/auth/forgot-password" className="text-xs font-semibold text-[var(--gold)] hover:underline">
+            Forgot password?
           </Link>
-      <Card className="w-full max-w-md border-primary/20 shadow-xl">
-        <CardHeader className="space-y-2  border-b">
-          <CardTitle className="text-2xl font-bold  text-gray-700 dark:text-gray-300 flex items-center gap-2">
-            <UserCheck className="w-6 h-6" />
-            Welcome Back
-          </CardTitle>
-          <CardDescription className="text-sm">
-            Sign in to your account to continue
-          </CardDescription>
-        </CardHeader>
+        </div>
+        <div className="relative">
+          <Input
+            id="password"
+            name="password"
+            type={showPassword ? 'text' : 'password'}
+            placeholder="Enter your password"
+            value={formData.password}
+            onChange={handleInputChange}
+            className={`pr-10 ${errors.password ? 'border-destructive' : ''}`}
+            disabled={isLoading}
+            autoComplete="current-password"
+          />
+          <button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground transition hover:text-[var(--gold)]"
+            tabIndex={-1}
+            aria-label={showPassword ? 'Hide password' : 'Show password'}
+          >
+            {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+          </button>
+        </div>
+        {errors.password && <p className="text-xs font-medium text-destructive">{errors.password}</p>}
+      </div>
 
-        <CardContent className="pt-6">
-          <form onSubmit={handleSubmit} className="space-y-4">
-            {/* General Error Message */}
-            {errors.general && (
-              <div className="p-3 bg-destructive/10 border border-destructive/20 rounded-lg flex items-start gap-3">
-                <div className="w-2 h-2 rounded-full bg-destructive mt-2"></div>
-                <p className="text-sm text-destructive font-medium">{errors.general}</p>
-              </div>
-            )}
+      <Button
+        type="submit"
+        disabled={isLoading}
+        className="mt-2 h-11 w-full rounded-sm bg-[var(--gold)] font-semibold text-[#111] hover:bg-[var(--gold)]/90"
+      >
+        {isLoading ? 'Signing in…' : 'Sign in'}
+      </Button>
 
-            {/* Username/Email Field */}
-            <div className="space-y-2">
-              <Label htmlFor="username" className="text-sm font-medium">
-                Username or Email
-              </Label>
-              <Input
-                id="username"
-                name="username"
-                type="text"
-                placeholder="Enter your username or email"
-                value={formData.username}
-                onChange={handleInputChange}
-                className={`transition border-gray-700/40 dark:border-gray-300/40 ${
-                  errors.username
-                    ? 'border-destructive focus-visible:ring-destructive'
-                    : 'border-primary/20 focus-visible:ring-primary'
-                }`}
-                disabled={isLoading}
-                autoComplete="username"
-              />
-              {errors.username && (
-                <p className="text-xs text-destructive font-medium">{errors.username}</p>
-              )}
-            </div>
-
-            {/* Password Field */}
-            <div className="space-y-2">
-              <div className="flex items-center justify-between">
-                <Label htmlFor="password" className="text-sm font-medium flex items-center gap-2">
-                  <Lock className="w-4 h-4 text-primary" />
-                  Password
-                </Label>
-                <Link
-                  href="/auth/forgot-password"
-                  className="text-xs text-primary hover:underline font-medium"
-                >
-                  Forgot password?
-                </Link>
-              </div>
-              <div className="relative">
-                <Input
-                  id="password"
-                  name="password"
-                  type={showPassword ? 'text' : 'password'}
-                  placeholder="Enter your password"
-                  value={formData.password}
-                  onChange={handleInputChange}
-                    className={`transition pr-10 border-gray-700/40 dark:border-gray-300/40 ${
-                    errors.password
-                      ? 'border-destructive focus-visible:ring-destructive'
-                      : 'border-primary/20 focus-visible:ring-primary'
-                  }`}
-                  disabled={isLoading}
-                  autoComplete="current-password"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-primary transition"
-                  tabIndex={-1}
-                >
-                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                </button>
-              </div>
-              {errors.password && (
-                <p className="text-xs text-destructive font-medium">{errors.password}</p>
-              )}
-            </div>
-
-            {/* Submit Button */}
-            <Button
-              type="submit"
-              disabled={isLoading}
-              className="w-full bg-green-700 hover:from-primary/90 hover:to-accent/90 text-white font-semibold py-2 h-auto mt-6 transition-all duration-300"
-            >
-              {isLoading ? (
-                <span className="flex items-center gap-2">
-                  <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                  Signing in...
-                </span>
-              ) : (
-                'Sign In'
-              )}
-            </Button>
-
-            {/* Security Infoarea */}
-            <div className="mt-4 p-3 bg-primary/10 border border-primary/20 items-center justify-center rounded-lg">
-              <p className="text-xs text-foreground/70 flex items-start gap-2">
-                <span className="text-accent font-bold mt-0.5"><ShieldCheck className='text-green-600'/></span>
-                Your login credentials are encrypted and secure
-              </p>
-            </div>
-
-            {/* Register Link */}
-            <p className="text-center text-sm text-muted-foreground mt-6">
-              Don't have an account?{' '}
-              <Link href="/auth/register" className="font-semibold text-primary hover:underline">
-                Create one now
-              </Link>
-            </p>
-          </form>
-        </CardContent>
-      </Card>
-    </div>
+      <p className="text-center text-sm text-muted-foreground">
+        New to the portal?{' '}
+        <Link href="/auth/register" className="font-semibold text-[var(--gold)] hover:underline">
+          Create an account
+        </Link>
+      </p>
+      <p className="text-center text-xs text-muted-foreground">
+        Staff member?{' '}
+        <Link href="/admin/login" className="font-semibold text-foreground hover:text-[var(--gold)]">
+          Use staff login
+        </Link>
+      </p>
+    </form>
   )
 }

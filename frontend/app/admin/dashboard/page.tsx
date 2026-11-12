@@ -13,7 +13,8 @@ import {
   LineChart,
   Line,
 } from 'recharts'
-import { FileText, Users, Image, Download } from 'lucide-react'
+import Link from 'next/link'
+import { FileText, Users, Image, MessageCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
 const dashboardStats = [
@@ -212,11 +213,19 @@ export default function AdminDashboard() {
         </CardContent>
       </Card>
 
-      {/* Quick Actions */}
-      <div className="flex gap-4">
-        <Button>Create New Post</Button>
-        <Button variant="outline">View All Applications</Button>
-        <Button variant="outline">Export Report</Button>
+      <div className="flex flex-wrap gap-4">
+        <Button asChild>
+          <Link href="/admin/blog/new">Create New Post</Link>
+        </Button>
+        <Button variant="outline" asChild>
+          <Link href="/admin/applications">View All Applications</Link>
+        </Button>
+        <Button variant="outline" asChild>
+          <Link href="/admin/messages">
+            <MessageCircle className="mr-2 h-4 w-4" />
+            View Anonymous Messages
+          </Link>
+        </Button>
       </div>
     </div>
   )

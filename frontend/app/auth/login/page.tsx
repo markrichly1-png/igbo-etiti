@@ -1,3 +1,4 @@
+import { AuthShell } from '@/components/auth/auth-shell'
 import { LoginForm } from '@/components/forms/login-form'
 
 export const metadata = {
@@ -6,5 +7,13 @@ export const metadata = {
 }
 
 export default function LoginPage() {
-  return <LoginForm />
+  return (
+    <AuthShell
+      eyebrow="Citizen access"
+      title="Sign in"
+      description="Use your portal account to continue applications, download records, and message the administration."
+    >
+      <LoginForm />
+    </AuthShell>
+  )
 }

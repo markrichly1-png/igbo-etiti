@@ -30,7 +30,7 @@ function StatItem({ number, label, image }: StatItemProps) {
           src={image}
           alt={label}
           loading="lazy"
-          className="absolute inset-0 h-full w-full object-cover opacity-15 transition duration-500 group-hover:scale-105 group-hover:opacity-25"
+          className="absolute inset-0 h-full w-full object-cover opacity-25 transition duration-500 group-hover:scale-105 group-hover:opacity-35"
         />
       ) : null}
       <div className="relative z-10 flex min-h-[11rem] flex-col justify-end p-6 md:min-h-[13rem]">
@@ -56,10 +56,10 @@ export function StatsSection() {
   return (
     <aside className="flex flex-col bg-muted text-foreground">
       <div className="border-b border-border px-6 py-8 md:px-10">
-        <p className="eyebrow">Impact highlights</p>
+        {/* <p className="eyebrow">Impact highlights</p> */}
         <h2 className="mt-3 text-3xl md:text-4xl">Serving with measurable work</h2>
         <p className="mt-3 max-w-md text-sm text-muted-foreground">
-          Dedication shown in infrastructure, education, and youth opportunity.
+          We are committed to serve and develop Igbo-Etiti through impactful infrastructure, education, and youth empowerment opportunities.
         </p>
       </div>
       <div className="grid flex-1 grid-cols-1 sm:grid-cols-2">
@@ -77,7 +77,7 @@ export function StatsSection() {
           onClick={() => router.push('/gallery')}
           className="rounded-sm bg-[var(--gold)] text-[var(--ink)] hover:bg-[var(--gold)]/90"
         >
-          See more in gallery
+          View gallery
         </Button>
       </div>
     </aside>

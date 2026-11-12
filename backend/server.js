@@ -525,20 +525,19 @@ app.post('/api2/anonymous-message', async (req, res) => {
     console.log('Anonymous Message Received:', messageLog)
 
     // TODO: Database integration example (uncomment when database is ready):
-    // const anonymousMessage = await prisma.anonymousMessage.create({
-    //   data: {
-    //     message: message.trim(),
-    //     fullName: fullName || 'Anonymous',
-    //     email: email || null,
-    //     phone: phone || null,
-    //     category: category.toUpperCase(),
-    //     lgaId: lgaId || 'default-lga',
-    //     ipAddress,
-    //     userAgent,
-    //     status: 'RECEIVED',
-    //     submittedAt: new Date(),
-    //   }
-    // })
+    const anonymousMessage = await prisma.anonymousMessage.create({
+      data: {
+        message: message.trim(),
+        fullName: fullName || 'Anonymous',
+        email: email || null,
+        phone: phone || null,
+        category: category.toUpperCase(),
+        ipAddress,
+        userAgent,
+        status: 'RECEIVED',
+        submittedAt: new Date(),
+      }
+    })
 
     res.status(200).json({
       success: true,
@@ -1210,6 +1209,23 @@ app.get('/api2/admin/payments', adminAuthMiddleware, async (req, res) => {
   } catch (error) {
     console.error('Admin list payments error:', error)
     res.status(500).json({ success: false, message: 'Failed to fetch payments' })
+  }
+})
+
+/**
+ * GET /api2/admin/anonymous-messages
+ */
+app.get('/api2/admin/anonymous-messages', adminAuthMiddleware, async (req, res) => {
+  try {
+    const data = await AdminService.listAnonymousMessages()
+    res.status(200).json({
+      success: true,
+      data: serializeBigInt(data),
+      count: data.length,
+    })
+  } catch (error) {
+    console.error('Admin list anonymous messages error:', error)
+    res.status(500).json({ success: false, message: 'Failed to fetch anonymous messages' })
   }
 })
 

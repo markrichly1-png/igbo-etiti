@@ -5,6 +5,7 @@ import Image from 'next/image'
 export function HeroSection() {
   return (
     <section className="relative bg-background text-foreground overflow-hidden">
+      
       <div className="absolute inset-0 bg-gradient-to-r from-[color-mix(in_oklch,var(--gold)_18%,white)] to-[color-mix(in_oklch,var(--faded-green)_12%,white)] opacity-90"></div>
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32 flex flex-col md:flex-row items-center gap-8">
         <div className="flex-1 z-10">

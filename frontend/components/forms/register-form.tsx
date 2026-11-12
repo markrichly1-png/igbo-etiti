@@ -4,13 +4,12 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import axios from 'axios'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Checkbox } from '@/components/ui/checkbox'
 import { toast } from 'sonner'
-import { Eye, EyeOff, Lock, Mail, User, Phone } from 'lucide-react'
+import { Eye, EyeOff } from 'lucide-react'
 
 const BACKEND_URL = 'https://igbo-etiti.onrender.com'
 
@@ -137,230 +136,155 @@ export function RegisterForm() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 flex items-center justify-center p-4">
-        <Link href="/" className="flex items-center gap-3 font-bold text-xl top-5 left-10 absolute hidden md:block md:flex hover:opacity-80 transition-opacity">
-            <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center p-1 shadow-md">
-              <img 
-                src="/coatOfArm.png" 
-                alt="Nigerian Coat of Arms" 
-                className="w-10 h-10"
-              />
-            </div>
-            <span className="sm:inline text-gray-700 dark:text-gray-300">Igbo-Etiti</span>
-          </Link>
-          <div className="font-semibold text-primary/70 text-xs absolute top-5 left-8 block md:hidden">Back to Home</div>
-      <Card className="w-full max-w-md mt-10 border-primary/20 shadow-xl">
-        <CardHeader className="space-y-2  border-b">
-          <CardTitle className="text-2xl font-bold">
-           Sign Up
-          </CardTitle>
-          <CardDescription className="text-sm">
-        Takes less than 2 minutes...
-          </CardDescription>
-        </CardHeader>
+    <form onSubmit={handleSubmit} className="space-y-5">
+      <div className="grid gap-5 sm:grid-cols-2">
+        <div className="auth-field">
+          <Label htmlFor="username">Username</Label>
+          <Input
+            id="username"
+            name="username"
+            type="text"
+            placeholder="Choose a username"
+            value={formData.username}
+            onChange={handleInputChange}
+            className={errors.username ? 'border-destructive' : ''}
+            disabled={isLoading}
+            autoComplete="username"
+          />
+          {errors.username && <p className="text-xs font-medium text-destructive">{errors.username}</p>}
+        </div>
 
-        <CardContent className="pt-6">
-          <form onSubmit={handleSubmit} className="space-y-4">
-            {/* Username Field */}
-            <div className="space-y-2">
-              <Label htmlFor="username" className="text-sm font-medium flex items-center gap-2">
-                <User className="w-4 h-4 text-primary" />
-                Username
-              </Label>
-              <Input
-                id="username"
-                name="username"
-                type="text"
-                placeholder="Choose your username"
-                value={formData.username}
-                onChange={handleInputChange}
-                className={`transition border-gray-700/40 dark:border-gray-300/40 ${
-                  errors.username
-                    ? 'border-destructive focus-visible:ring-destructive'
-                    : 'border-primary/20 focus-visible:ring-primary'
-                }`}
-                disabled={isLoading}
-              />
-              {errors.username && (
-                <p className="text-xs text-destructive font-medium">{errors.username}</p>
-              )}
-            </div>
+        <div className="auth-field">
+          <Label htmlFor="email">Email</Label>
+          <Input
+            id="email"
+            name="email"
+            type="email"
+            placeholder="you@example.com"
+            value={formData.email}
+            onChange={handleInputChange}
+            className={errors.email ? 'border-destructive' : ''}
+            disabled={isLoading}
+            autoComplete="email"
+          />
+          {errors.email && <p className="text-xs font-medium text-destructive">{errors.email}</p>}
+        </div>
+      </div>
 
-            {/* Email Field */}
-            <div className="space-y-2">
-              <Label htmlFor="email" className="text-sm font-medium flex items-center gap-2">
-                <Mail className="w-4 h-4 text-primary" />
-                Email Address
-              </Label>
-              <Input
-                id="email"
-                name="email"
-                type="email"
-                placeholder="your.email@example.com"
-                value={formData.email}
-                onChange={handleInputChange}
-                className={`transition border-gray-700/40 dark:border-gray-300/40 ${
-                  errors.email
-                    ? 'border-destructive focus-visible:ring-destructive'
-                    : 'border-primary/20 focus-visible:ring-primary'
-                }`}
-                disabled={isLoading}
-              />
-              {errors.email && (
-                <p className="text-xs text-destructive font-medium">{errors.email}</p>
-              )}
-            </div>
+      <div className="auth-field">
+        <Label htmlFor="phone">Phone number</Label>
+        <Input
+          id="phone"
+          name="phone"
+          type="tel"
+          placeholder="+234 800 000 0000"
+          value={formData.phone}
+          onChange={handleInputChange}
+          className={errors.phone ? 'border-destructive' : ''}
+          disabled={isLoading}
+          autoComplete="tel"
+        />
+        {errors.phone && <p className="text-xs font-medium text-destructive">{errors.phone}</p>}
+      </div>
 
-            {/* Phone Field */}
-            <div className="space-y-2">
-              <Label htmlFor="phone" className="text-sm font-medium flex items-center gap-2">
-                <Phone className="w-4 h-4 text-primary" />
-                Phone Number
-              </Label>
-              <Input
-                id="phone"
-                name="phone"
-                type="tel"
-                placeholder="+234 (0) 123 456 7890"
-                value={formData.phone}
-                onChange={handleInputChange}
-                className={`transition border-gray-700/40 dark:border-gray-300/40 ${
-                  errors.phone
-                    ? 'border-destructive focus-visible:ring-destructive'
-                    : 'border-primary/20 focus-visible:ring-primary'
-                }`}
-                disabled={isLoading}
-              />
-              {errors.phone && (
-                <p className="text-xs text-destructive font-medium">{errors.phone}</p>
-              )}
-            </div>
-
-            {/* Password Field */}
-            <div className="space-y-2">
-              <Label htmlFor="password" className="text-sm font-medium flex items-center gap-2">
-                <Lock className="w-4 h-4 text-primary" />
-                Password
-              </Label>
-              <div className="relative">
-                <Input
-                  id="password"
-                  name="password"
-                  type={showPassword ? 'text' : 'password'}
-                  placeholder="Enter a strong password"
-                  value={formData.password}
-                  onChange={handleInputChange}
-                  className={`transition pr-10 border-gray-700/40 dark:border-gray-300/40 ${
-                    errors.password
-                      ? 'border-destructive focus-visible:ring-destructive'
-                      : 'border-primary/20 focus-visible:ring-primary'
-                  }`}
-                  disabled={isLoading}
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-primary transition"
-                  tabIndex={-1}
-                >
-                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                </button>
-              </div>
-              {errors.password && (
-                <p className="text-xs text-destructive font-medium">{errors.password}</p>
-              )}
-            </div>
-
-            {/* Confirm Password Field */}
-            <div className="space-y-2">
-              <Label htmlFor="confirmPassword" className="text-sm font-medium flex items-center gap-2">
-                <Lock className="w-4 h-4 text-primary" />
-                Confirm Password
-              </Label>
-              <div className="relative">
-                <Input
-                  id="confirmPassword"
-                  name="confirmPassword"
-                  type={showConfirmPassword ? 'text' : 'password'}
-                  placeholder="Re-enter your password"
-                  value={formData.confirmPassword}
-                  onChange={handleInputChange}
-                  className={`transition pr-10 border-gray-700/40 dark:border-gray-300/40 ${
-                    errors.confirmPassword
-                      ? 'border-destructive focus-visible:ring-destructive'
-                      : 'border-primary/20 focus-visible:ring-primary'
-                  }`}
-                  disabled={isLoading}
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-primary transition"
-                  tabIndex={-1}
-                >
-                  {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                </button>
-              </div>
-              {errors.confirmPassword && (
-                <p className="text-xs text-destructive font-medium">{errors.confirmPassword}</p>
-              )}
-            </div>
-
-            {/* Terms & Conditions */}
-            <div className="flex items-start space-x-2 pt-2">
-              <Checkbox
-                id="agreeTerms"
-                name="agreeTerms"
-                checked={formData.agreeTerms}
-                onCheckedChange={(checked) =>
-                  handleInputChange({
-                    target: { name: 'agreeTerms', checked, type: 'checkbox' },
-                  } as any)
-                }
-                disabled={isLoading}
-                className="mt-1"
-              />
-              <Label htmlFor="agreeTerms" className="text-xs leading-relaxed cursor-pointer">
-                I agree to the{' '}
-                <Link href="/terms" className="font-semibold text-primary hover:underline">
-                  Terms and Conditions
-                </Link>{' '}
-                and{' '}
-                <Link href="/privacy" className="font-semibold text-primary hover:underline">
-                  Privacy Policy
-                </Link>
-              </Label>
-            </div>
-            {errors.agreeTerms && (
-              <p className="text-xs text-destructive font-medium">{errors.agreeTerms}</p>
-            )}
-
-            {/* Submit Button */}
-            <Button
-              type="submit"
+      <div className="grid gap-5 sm:grid-cols-2">
+        <div className="auth-field">
+          <Label htmlFor="password">Password</Label>
+          <div className="relative">
+            <Input
+              id="password"
+              name="password"
+              type={showPassword ? 'text' : 'password'}
+              placeholder="At least 8 characters"
+              value={formData.password}
+              onChange={handleInputChange}
+              className={`pr-10 ${errors.password ? 'border-destructive' : ''}`}
               disabled={isLoading}
-              className="w-full bg-green-800 hover:from-primary/90 hover:to-accent/90 text-white font-semibold py-2 h-auto mt-6 transition-all duration-300"
+              autoComplete="new-password"
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground transition hover:text-[var(--gold)]"
+              tabIndex={-1}
+              aria-label={showPassword ? 'Hide password' : 'Show password'}
             >
-              {isLoading ? (
-                <span className="flex items-center gap-2">
-                  <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                  Creating Account...
-                </span>
-              ) : (
-                'Create Account'
-              )}
-            </Button>
+              {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+            </button>
+          </div>
+          {errors.password && <p className="text-xs font-medium text-destructive">{errors.password}</p>}
+        </div>
 
-            {/* Login Link */}
-            <p className="text-center text-sm text-muted-foreground mt-6">
-              Already have an account?{' '}
-              <Link href="/auth/login" className="font-semibold text-primary hover:underline">
-                Sign in here
-              </Link>
-            </p>
-          </form>
-        </CardContent>
-      </Card>
-    </div>
+        <div className="auth-field">
+          <Label htmlFor="confirmPassword">Confirm password</Label>
+          <div className="relative">
+            <Input
+              id="confirmPassword"
+              name="confirmPassword"
+              type={showConfirmPassword ? 'text' : 'password'}
+              placeholder="Re-enter password"
+              value={formData.confirmPassword}
+              onChange={handleInputChange}
+              className={`pr-10 ${errors.confirmPassword ? 'border-destructive' : ''}`}
+              disabled={isLoading}
+              autoComplete="new-password"
+            />
+            <button
+              type="button"
+              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground transition hover:text-[var(--gold)]"
+              tabIndex={-1}
+              aria-label={showConfirmPassword ? 'Hide password' : 'Show password'}
+            >
+              {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+            </button>
+          </div>
+          {errors.confirmPassword && (
+            <p className="text-xs font-medium text-destructive">{errors.confirmPassword}</p>
+          )}
+        </div>
+      </div>
+
+      <div className="flex items-start gap-2 pt-1">
+        <Checkbox
+          id="agreeTerms"
+          name="agreeTerms"
+          checked={formData.agreeTerms}
+          onCheckedChange={(checked) =>
+            handleInputChange({
+              target: { name: 'agreeTerms', checked, type: 'checkbox' },
+            } as any)
+          }
+          disabled={isLoading}
+          className="mt-0.5"
+        />
+        <Label htmlFor="agreeTerms" className="cursor-pointer text-xs leading-relaxed font-normal">
+          I agree to the{' '}
+          <Link href="/terms" className="font-semibold text-[var(--gold)] hover:underline">
+            Terms and Conditions
+          </Link>{' '}
+          and{' '}
+          <Link href="/privacy" className="font-semibold text-[var(--gold)] hover:underline">
+            Privacy Policy
+          </Link>
+        </Label>
+      </div>
+      {errors.agreeTerms && <p className="text-xs font-medium text-destructive">{errors.agreeTerms}</p>}
+
+      <Button
+        type="submit"
+        disabled={isLoading}
+        className="h-11 w-full rounded-sm bg-[var(--gold)] font-semibold text-[#111] hover:bg-[var(--gold)]/90"
+      >
+        {isLoading ? 'Creating account…' : 'Create account'}
+      </Button>
+
+      <p className="text-center text-sm text-muted-foreground">
+        Already registered?{' '}
+        <Link href="/auth/login" className="font-semibold text-[var(--gold)] hover:underline">
+          Sign in
+        </Link>
+      </p>
+    </form>
   )
 }

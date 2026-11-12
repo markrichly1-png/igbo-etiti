@@ -1,3 +1,4 @@
+import { AuthShell } from '@/components/auth/auth-shell'
 import { RegisterForm } from '@/components/forms/register-form'
 
 export const metadata = {
@@ -6,5 +7,13 @@ export const metadata = {
 }
 
 export default function RegisterPage() {
-  return <RegisterForm />
+  return (
+    <AuthShell
+      eyebrow="New account"
+      title="Create an account"
+      description="Register once to apply for identification, birth certificates, and other citizen services."
+    >
+      <RegisterForm />
+    </AuthShell>
+  )
 }

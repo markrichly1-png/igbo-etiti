@@ -20,7 +20,7 @@ export async function AnnouncementsSection() {
             href="/blog"
             className="text-sm font-semibold text-[var(--ink)] underline decoration-[var(--gold)] underline-offset-4 transition hover:text-[var(--gold)]"
           >
-            View all news
+            All news
           </Link>
         </div>
 
