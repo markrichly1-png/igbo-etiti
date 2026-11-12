@@ -59,6 +59,14 @@ export const adminApi = {
     return response.data
   },
 
+  async deleteAnonymousMessage(token: string, id: string) {
+    const response = await axios.delete(
+      `${getBackendUrl()}/api2/admin/anonymous-messages/${id}`,
+      { headers: authHeaders(token) }
+    )
+    return response.data
+  },
+
   async listStaff(token: string) {
     const response = await axios.get(`${getBackendUrl()}/api2/admin/staff`, {
       headers: authHeaders(token),

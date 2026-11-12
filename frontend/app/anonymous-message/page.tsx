@@ -53,11 +53,12 @@ export default function AnonymousMessagePage() {
         }),
       })
 
-      if (!response.ok) {
-        throw new Error('Failed to submit message')
+      const data = await response.json().catch(() => ({}))
+
+      if (!response.ok || !data.success) {
+        throw new Error(data.message || 'Failed to submit message')
       }
 
-      const data = await response.json()
       setSubmitted(true)
       setMessage('')
       setFullName('')

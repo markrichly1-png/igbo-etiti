@@ -10,7 +10,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { Search } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { Search, Trash2 } from 'lucide-react'
 import { adminApi, getAdminToken } from '@/lib/api/adminApi'
 
 interface AnonymousMessage {
@@ -41,6 +42,8 @@ const STATUS_STYLES: Record<string, string> = {
   CLOSED: 'bg-muted text-muted-foreground',
 }
 
+const PAGE_SIZE = 10
+
 export default function AnonymousMessagesPage() {
   const [messages, setMessages] = useState<AnonymousMessage[]>([])
   const [loading, setLoading] = useState(true)
@@ -49,6 +52,7 @@ export default function AnonymousMessagesPage() {
   const [categoryFilter, setCategoryFilter] = useState('all')
   const [statusFilter, setStatusFilter] = useState('all')
   const [expandedId, setExpandedId] = useState<string | null>(null)
+  const [currentPage, setCurrentPage] = useState(0)
 
   useEffect(() => {
     const token = getAdminToken()
@@ -80,6 +84,36 @@ export default function AnonymousMessagesPage() {
       return matchesSearch && matchesCategory && matchesStatus
     })
   }, [messages, searchTerm, categoryFilter, statusFilter])
+
+  const totalPages = Math.max(1, Math.ceil(filteredMessages.length / PAGE_SIZE))
+
+  useEffect(() => {
+    setCurrentPage((prev) => {
+      const maxPage = Math.max(totalPages - 1, 0)
+      return Math.min(prev, maxPage)
+    })
+  }, [totalPages])
+
+  const paginatedMessages = filteredMessages.slice(
+    currentPage * PAGE_SIZE,
+    currentPage * PAGE_SIZE + PAGE_SIZE
+  )
+
+  const handleDelete = async (id: string) => {
+    const confirmed = window.confirm('Delete this message? This action cannot be undone.')
+    if (!confirmed) return
+
+    const token = getAdminToken()
+    if (!token) return
+
+    try {
+      await adminApi.deleteAnonymousMessage(token, id)
+      setMessages((prev) => prev.filter((item) => item.id !== id))
+      setExpandedId((prev) => (prev === id ? null : prev))
+    } catch {
+      window.alert('Failed to delete this message. Please try again.')
+    }
+  }
 
   if (loading) {
     return <p className="text-foreground/70">Loading anonymous messages…</p>
@@ -144,8 +178,13 @@ export default function AnonymousMessagesPage() {
         </Card>
 
         <Card>
-          <CardHeader>
+          <CardHeader className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
             <CardTitle>All messages ({filteredMessages.length})</CardTitle>
+            {filteredMessages.length > 0 && (
+              <div className="text-sm text-foreground/70">
+                Page {currentPage + 1} of {totalPages}
+              </div>
+            )}
           </CardHeader>
           <CardContent>
             <div className="overflow-x-auto">
@@ -157,10 +196,11 @@ export default function AnonymousMessagesPage() {
                     <th className="px-4 py-3 text-left font-semibold text-foreground">Category</th>
                     <th className="px-4 py-3 text-left font-semibold text-foreground">Message</th>
                     <th className="px-4 py-3 text-left font-semibold text-foreground">Status</th>
+                    <th className="px-4 py-3 text-left font-semibold text-foreground">Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredMessages.map((item) => {
+                  {paginatedMessages.map((item) => {
                     const isExpanded = expandedId === item.id
                     return (
                       <tr
@@ -194,6 +234,21 @@ export default function AnonymousMessagesPage() {
                             {item.status.replaceAll('_', ' ').toLowerCase()}
                           </span>
                         </td>
+                        <td className="px-4 py-3">
+                          <Button
+                            type="button"
+                            variant="ghost"
+                            size="icon"
+                            className="h-8 w-8 text-red-600 hover:bg-red-50 hover:text-red-700"
+                            onClick={(e) => {
+                              e.stopPropagation()
+                              void handleDelete(item.id)
+                            }}
+                            aria-label={`Delete message from ${item.fullName || 'anonymous sender'}`}
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
+                        </td>
                       </tr>
                     )
                   })}
@@ -204,6 +259,32 @@ export default function AnonymousMessagesPage() {
             {filteredMessages.length === 0 && (
               <div className="py-8 text-center">
                 <p className="text-foreground/70">No messages match your filters.</p>
+              </div>
+            )}
+
+            {filteredMessages.length > 0 && (
+              <div className="mt-6 flex items-center justify-between gap-4">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setCurrentPage((page) => Math.max(page - 1, 0))}
+                  disabled={currentPage === 0}
+                >
+                  Previous
+                </Button>
+                <span className="text-sm text-foreground/70">
+                  Showing {filteredMessages.length === 0 ? 0 : currentPage * PAGE_SIZE + 1}–
+                  {Math.min((currentPage + 1) * PAGE_SIZE, filteredMessages.length)} of{' '}
+                  {filteredMessages.length}
+                </span>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setCurrentPage((page) => Math.min(page + 1, totalPages - 1))}
+                  disabled={currentPage >= totalPages - 1}
+                >
+                  Next
+                </Button>
               </div>
             )}
           </CardContent>

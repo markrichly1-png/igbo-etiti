@@ -489,9 +489,8 @@ app.post('/api2/auth/logout', async (req, res) => {
  */
 app.post('/api2/anonymous-message', async (req, res) => {
   try {
-    const { message, fullName, email, phone, category, lgaId, ipAddress, userAgent } = req.body
+    const { message, fullName, email, phone, category, ipAddress, userAgent } = req.body
 
-    // Validate required fields
     if (!message || typeof message !== 'string' || message.trim().length === 0) {
       return res.status(400).json({
         success: false,
@@ -506,44 +505,34 @@ app.post('/api2/anonymous-message', async (req, res) => {
       })
     }
 
-    // Log the anonymous message (for now, just console.log)
-    // TODO: Save to database using Prisma when database is set up
-    const messageLog = {
-      id: `MSG-${Date.now()}`,
-      message: message.substring(0, 100) + '...',
-      category,
-      fullName: fullName || 'Anonymous',
-      email: email || 'Not provided',
-      phone: phone || 'Not provided',
-      lgaId: lgaId || 'default-lga',
-      ipAddress: ipAddress || 'unknown',
-      userAgent: userAgent ? userAgent.substring(0, 100) : 'unknown',
-      receivedAt: new Date().toISOString(),
-      status: 'RECEIVED'
+    const normalizedCategory = String(category).trim().toUpperCase()
+    const validCategories = ['GENERAL', 'COMPLAINT', 'SUGGESTION', 'COMMENDATION', 'REPORT', 'OTHER']
+    if (!validCategories.includes(normalizedCategory)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Invalid category',
+      })
     }
 
-    console.log('Anonymous Message Received:', messageLog)
-
-    // TODO: Database integration example (uncomment when database is ready):
     const anonymousMessage = await prisma.anonymousMessage.create({
       data: {
         message: message.trim(),
-        fullName: fullName || 'Anonymous',
-        email: email || null,
-        phone: phone || null,
-        category: category.toUpperCase(),
-        ipAddress,
-        userAgent,
+        fullName: fullName?.trim() || 'Anonymous',
+        email: email?.trim() || null,
+        phone: phone?.trim() || null,
+        category: normalizedCategory,
+        ipAddress: ipAddress || null,
+        userAgent: userAgent || null,
         status: 'RECEIVED',
         submittedAt: new Date(),
-      }
+      },
     })
 
     res.status(200).json({
       success: true,
       message: 'Your message has been received. Thank you for your feedback.',
-      messageId: messageLog.id,
-      timestamp: new Date().toISOString()
+      messageId: anonymousMessage.id,
+      timestamp: anonymousMessage.submittedAt.toISOString(),
     })
   } catch (error) {
     console.error('Error processing anonymous message:', error)
@@ -1226,6 +1215,23 @@ app.get('/api2/admin/anonymous-messages', adminAuthMiddleware, async (req, res) 
   } catch (error) {
     console.error('Admin list anonymous messages error:', error)
     res.status(500).json({ success: false, message: 'Failed to fetch anonymous messages' })
+  }
+})
+
+/**
+ * DELETE /api2/admin/anonymous-messages/:id
+ */
+app.delete('/api2/admin/anonymous-messages/:id', adminAuthMiddleware, async (req, res) => {
+  try {
+    const data = await AdminService.deleteAnonymousMessage(req.params.id)
+    res.status(200).json({ success: true, data })
+  } catch (error) {
+    const status = error.code === 'P2025' ? 404 : 500
+    console.error('Admin delete anonymous message error:', error)
+    res.status(status).json({
+      success: false,
+      message: status === 404 ? 'Message not found' : 'Failed to delete message',
+    })
   }
 })
 

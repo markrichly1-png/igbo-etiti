@@ -383,6 +383,14 @@ class AdminService {
       },
     })
   }
+
+  static async deleteAnonymousMessage(id) {
+    if (!id) {
+      throw new Error('Message id is required')
+    }
+    await prisma.anonymousMessage.delete({ where: { id } })
+    return { id }
+  }
 }
 
 module.exports = AdminService
