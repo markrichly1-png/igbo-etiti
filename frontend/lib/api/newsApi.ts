@@ -1,5 +1,6 @@
 import { BlogPost } from '@/lib/types'
 import { getBackendUrl } from '@/lib/api/backendUrl'
+import { connected } from 'node:process'
 
 function normalizeNewsItem(item: any): BlogPost | null {
   if (!item || !item.title) return null
@@ -49,6 +50,7 @@ async function fetchNewsResponse(page = 1, limit = 0) {
   if (!response.ok) {
     return { items: [], page, totalPages: 1, total: 0 }
   }
+  
 
   const payload = await response.json().catch(() => ({ data: [], page, totalPages: 1, total: 0 }))
   const items = Array.isArray(payload?.data) ? payload.data : Array.isArray(payload) ? payload : []
@@ -61,6 +63,7 @@ async function fetchNewsResponse(page = 1, limit = 0) {
     totalPages: Number(payload?.totalPages ?? 1) || 1,
     total: Number(payload?.total ?? items.length) || 0,
   }
+  
 }
 
 export async function fetchNews(page = 1, limit = 0): Promise<BlogPost[]> {
