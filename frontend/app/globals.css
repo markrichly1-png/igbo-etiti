@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Open+Sans:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Outfit:wght@300;400;500;600;700;800&display=swap');
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
@@ -133,7 +133,7 @@
 }
 
 @theme inline {
-  --font-sans: 'Open Sans', 'Inter', sans-serif;
+  --font-sans: 'Outfit', 'Open Sans', sans-serif;
   --font-display: 'Fraunces', Georgia, serif;
   --font-mono: 'Geist Mono', 'Geist Mono Fallback';
 
@@ -183,10 +183,11 @@
     scrollbar-color: var(--gold) var(--background);
   }
   body {
-    @apply bg-background text-foreground;
+    background: linear-gradient(180deg, var(--muted) 0%, var(--background) 100%);
+    color: var(--foreground);
   }
   h1, h2, h3 {
-    font-family: var(--font-display);
+    font-family: var(--font-sans);
     letter-spacing: -0.02em;
   }
 }
@@ -196,7 +197,7 @@
     display: flex;
     min-height: 100vh;
     flex-direction: column;
-    background: var(--background);
+    background: linear-gradient(180deg, var(--muted) 0%, var(--background) 100%);
     color: var(--foreground);
   }
 

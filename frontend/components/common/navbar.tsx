@@ -16,7 +16,7 @@ export function Navbar() {
   ]
 
   return (
-    <nav className="sticky rounded-[40px] relative top-[8px]  shadow-md z-50 overflow-hidden border-b border-border mx-4 md:mx-8 bg-background/90 text-foreground backdrop-blur-md">
+    <nav className="sticky rounded-[40px] relative top-[8px] shadow-md z-50 overflow-hidden border-b border-border mx-4 md:mx-8 bg-[linear-gradient(180deg,var(--muted)_0%,var(--background)_100%)] text-foreground backdrop-blur-md">
 
       <div className='absolute z-[51] h-[4000%] w-[200%] animate-rotate -translate-y-1/2 -translate-x-1/2 top-1/2 left-1/2 rotateInnerDiv '
       style={{background:'conic-gradient(from 90deg, transparent 80% , orange 100%)'}}
@@ -38,7 +38,7 @@ export function Navbar() {
           <div className="hidden items-center gap-1 md:flex">
             {navLinks.map((link) => (
               <Link key={link.href} href={link.href}>
-                <Button className="rounded-none border-b-2 border-transparent bg-transparent text-foreground hover:border-[var(--gold)] hover:bg-transparent hover:text-[var(--gold)]">
+                <Button className="rounded-lg border-b-2 border-transparent bg-transparent text-foreground hover:border-[var(--gold)] hover:bg-transparent hover:text-[var(--gold)]">
                   {link.label}
                 </Button>
               </Link>
@@ -52,7 +52,7 @@ export function Navbar() {
               </Button>
             </Link>
             <Link href="/admin/login">
-              <Button className="rounded-sm border border-[var(--gold)] bg-[var(--gold)] text-[var(--ink)] hover:bg-transparent hover:text-[var(--gold)]">
+              <Button className="rounded-lg border border-[var(--gold)] bg-[var(--gold)] text-[var(--ink)] hover:bg-transparent hover:text-[var(--gold)]">
                 Staff
               </Button>
             </Link>
@@ -91,7 +91,7 @@ export function Navbar() {
                 </Button>
               </Link>
               <Link href="/admin/login">
-                <Button className="w-full bg-[var(--gold)] text-[var(--ink)] hover:bg-[var(--gold)]/90">
+                <Button className="w-full bg-[var(--gold)] text-white md:text-[var(--ink)] hover:bg-[var(--gold)]/90">
                   Staff Portal
                 </Button>
               </Link>

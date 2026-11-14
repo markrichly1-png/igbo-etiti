@@ -5,12 +5,13 @@ import { Footer } from '@/components/common/footer'
 import './globals.css'
 import { ThemeProvider } from '@/components/theme-provider'
 import { Toaster } from 'sonner'
-import { Inter } from 'next/font/google'
+import { Outfit } from 'next/font/google'
 import Link from 'next/link'
 
-const inter = Inter({
+const outfit = Outfit({
   subsets: ['latin'],
- display: 'swap',
+  display: 'swap',
+  variable: '--font-outfit',
 })
 
 export const metadata: Metadata = {
@@ -71,7 +72,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en"
-      className="bg-background"
+      className={`${outfit.variable} bg-background`}
       style={{scrollbarWidth:'thin'}}
       suppressHydrationWarning>
       <head>
@@ -80,7 +81,7 @@ export default function RootLayout({
         {/* Canonical URL */}
         <link rel="canonical" href="https://igsl.vercel.app" />
       </head>
-      <body className={`${inter.className} bg-background antialiased flex flex-col  min-h-screen`}>
+      <body className={`${outfit.className} bg-background flex flex-col min-h-screen`}>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} forcedTheme="light">
           <main className="flex-1 ">
              {/* <Link href="/" className="flex items-center gap-3 font-bold top-5 left-5 text-xl md:top-5 md:left-10 absolute  md:block md:flex hover:opacity-80 transition-opacity">

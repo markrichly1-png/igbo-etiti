@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowUpRight, FileText, FileUser, MapPin, MessageCircle, ShieldCheck } from 'lucide-react'
+import { ArrowUpRight, FileText, FileUser, MapPin, MessageCircle, Pen, ShieldCheck } from 'lucide-react'
 
 const deskLinks = [
   {
@@ -34,14 +34,14 @@ export function HeroSection() {
       <div className="landing-wrap relative">
         <div className="landing-hero">
           <div className="flex flex-col justify-center">
-            <p className="eyebrow">Enugu State, Nigeria</p>
+            <p className="eyebrow text-gray-600">Enugu State, Nigeria</p>
 
-            <h1 className="mt-5 max-w-xl text-[2.75rem] leading-[0.92] text-foreground sm:text-5xl md:text-6xl lg:text-7xl">
-              Igbo-Etiti
-              <span className="mt-2 block text-[var(--gold)]">Local Government</span>
+            <h1 className="mt-5 max-w-xl font-sans text-[2.75rem] font-black leading-[0.92] tracking-[-0.04em] text-foreground sm:text-5xl md:text-6xl lg:text-7xl">
+              <span className="font-[800] scale-[1.4] text-40xl">Igbo-Etiti</span>
+              <span className="mt-2 block font-[500] text-gray-600">Local Government</span>
             </h1>
 
-            <p className="mt-5 max-w-lg font-display text-xl italic leading-snug text-foreground/80 md:text-2xl">
+            <p className="mt-5 max-w-lg font-sans text-xl italic leading-snug text-foreground/80 md:text-2xl">
               Progress Agenda. Tomorrow is here.
             </p>
             <p className="mt-4 max-w-lg text-base leading-relaxed text-muted-foreground md:text-lg">
@@ -51,7 +51,7 @@ export function HeroSection() {
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <Link
                 href="/services"
-                className="inline-flex items-center gap-2 rounded-sm bg-[var(--gold)] px-5 py-3 text-sm font-semibold text-[#111] transition hover:brightness-110"
+                className="inline-flex items-center gap-2 rounded-sm bg-[var(--gold)] px-5 py-3 text-sm font-semibold text-white transition hover:brightness-110"
               >
                 Access services
                 <ArrowUpRight className="h-4 w-4" />
@@ -67,12 +67,13 @@ export function HeroSection() {
                 href="/anonymous-message"
                 className="inline-flex items-center gap-2 px-2 py-3 text-sm font-semibold text-muted-foreground transition hover:text-[var(--gold)]"
               >
-                <MessageCircle className="h-4 w-4" />
+                
                 Confidential message
+                <Pen className="h-4 w-4" />
               </Link>
             </div>
 
-            <dl className="hero-facts">
+            <dl className="flex mt-4 px-6 justify-between">
               <div>
                 <dt>Headquarters</dt>
                 <dd className="flex items-center gap-1.5">
