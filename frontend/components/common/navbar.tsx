@@ -16,8 +16,13 @@ export function Navbar() {
   ]
 
   return (
-    <nav className="sticky top-0 z-50 border-b border-border bg-background/90 text-foreground backdrop-blur-md">
-      <div className="landing-wrap">
+    <nav className="sticky rounded-[40px] relative top-[8px]  shadow-md z-50 overflow-hidden border-b border-border mx-4 md:mx-8 bg-background/90 text-foreground backdrop-blur-md">
+
+      <div className='absolute z-[51] h-[4000%] w-[200%] animate-rotate -translate-y-1/2 -translate-x-1/2 top-1/2 left-1/2 rotateInnerDiv '
+      style={{background:'conic-gradient(from 90deg, transparent 80% , orange 100%)'}}
+      />
+      <div className='w-[99.5%] z-[80] relative h-[60%] rounded-[40px] mt-[2px] mb-[2px] mx-auto bg-background'>
+      <div className="landing-wrap-nav">
         <div className="flex h-[4.25rem] items-center justify-between">
           <Link href="/" className="flex items-center gap-3 font-bold text-xl transition-opacity hover:opacity-80">
             <div className="relative flex h-11 w-11 items-center justify-center overflow-hidden rounded-full bg-white shadow-md">
@@ -93,6 +98,7 @@ export function Navbar() {
             </div>
           </div>
         )}
+      </div>
       </div>
     </nav>
   )
