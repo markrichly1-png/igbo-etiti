@@ -64,6 +64,7 @@
 .bgMover{ background-size:300% 100%;animation: moveBg 4s ease infinite;}
 :root {
   /* Black, white, deep orange-yellow */
+  
   --background: oklch(0.99 0.004 85);
   --foreground: oklch(0.13 0.01 70);
   --card: oklch(1 0 0);
