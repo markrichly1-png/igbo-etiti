@@ -50,6 +50,18 @@
 .rotateInnerDiv{
   animation: rotateInner 4s linear infinite;
 }
+
+@keyframes moveBg {
+  0%{background-position: 300% 100%;}
+  
+  
+ 
+  90%{background-position: -200% 50%;}
+  100%{background-position: -200% 50%}
+  
+}
+
+.bgMover{ background-size:300% 100%;animation: moveBg 4s ease infinite;}
 :root {
   /* Black, white, deep orange-yellow */
   --background: oklch(0.99 0.004 85);
