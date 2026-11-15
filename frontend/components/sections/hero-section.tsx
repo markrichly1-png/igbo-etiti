@@ -38,7 +38,7 @@ export function HeroSection() {
   "Education and Youth Employment",
   "Agriculture and Local Business Development",
   "Security and Community Peacebuilding",
-  "Clean Water, Sanitation and Waste Management",
+  "Clean Water for every community",
   "Transparent and Accountable Governance"
 ]
 const[heroText, setHeroText]=useState('Welcome')

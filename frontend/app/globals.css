@@ -63,7 +63,7 @@
   
 }
 
-.bgMover{ background-size:300% 100%;animation: moveBg 4s ease infinite;}
+.bgMover{ background-size:300% 100%;animation: moveBg 4s linear infinite;}
 
 @keyframes rotateInner {
   100% { transform: rotate(540deg); }
