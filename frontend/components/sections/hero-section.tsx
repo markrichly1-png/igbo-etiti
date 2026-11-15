@@ -80,7 +80,7 @@ useEffect(()=>{
               <span className="mt-2 block font-[500] text-gray-600">Local Government</span>
             </h1>
 
-            <p className="mt-5 bgMover text-transparent bg-clip-text bg-gradient-to-r from-foreground/90 to-transparent max-w-lg font-sans text-xl italic leading-snug  md:text-2xl">
+            <p className="mt-5 bgMover text-transparent bg-clip-text bg-gradient-to-r from-foreground/90 to-transparent max-w-lg font-sans text-md md:text-xl italic leading-snug  md:text-2xl">
               {heroText}
             </p>
 
@@ -98,9 +98,8 @@ useEffect(()=>{
               <Image
                 src="/coatOfArm.png"
                 alt=""
-                width={72}
-                height={72}
-                className="hero-portrait__seal rounded-full animateRotate"
+                
+                className="hero-portrait__seal h-[30px] animate pulse opacity-60 w-[30px] md:h-[72px] md:w-[72px] rounded-full ani"
               />
               <figcaption className="hero-portrait__caption">
                 

@@ -19,7 +19,7 @@ export function Navbar() {
     <nav className="sticky rounded-[40px] relative top-[8px] shadow-md z-50 overflow-hidden border-b border-border mx-4 md:mx-8 bg-[linear-gradient(180deg,var(--muted)_0%,var(--background)_100%)] text-foreground backdrop-blur-md">
 
       <div className='absolute z-[51] h-[4000%] w-[200%] animate-rotate -translate-y-1/2 -translate-x-1/2 top-1/2 left-1/2 rotateInnerDiv '
-      style={{background:'conic-gradient(from 90deg, transparent 80% , orange 100%)'}}
+      style={{background:'conic-gradient(from 90deg, transparent 80% , green 100%)'}}
       />
       <div className='w-[99.5%] z-[80] relative h-[60%] rounded-[40px] mt-[2px] mb-[2px] mx-auto bg-background'>
       <div className="landing-wrap-nav">
