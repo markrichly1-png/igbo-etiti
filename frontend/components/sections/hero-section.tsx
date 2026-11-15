@@ -128,6 +128,8 @@ useEffect(()=>{
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-3">
+
+              
               <Link
                 href="/services"
                 className="inline-flex items-center gap-2 shadow-sm rounded-lg border border-[var(--gold)] px-5 py-3 text-sm font-semibold text-[var(--gold)] transition hover:brightness-110"
