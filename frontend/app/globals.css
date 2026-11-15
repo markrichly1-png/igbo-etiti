@@ -52,19 +52,21 @@
 }
 
 @keyframes moveBg {
-  0%{background-position: 300% 100%;}
+    0% {
+    background-position: 200% 50%;}
+   20%{background-position:100% 0%}
   
   
- 
-  90%{background-position: -200% 50%;}
-  100%{background-position: -200% 50%}
+  100% {
+    background-position: 0% 50%;
+  }
   
 }
 
 .bgMover{ background-size:300% 100%;animation: moveBg 4s ease infinite;}
 :root {
   /* Black, white, deep orange-yellow */
-  
+
   --background: oklch(0.99 0.004 85);
   --foreground: oklch(0.13 0.01 70);
   --card: oklch(1 0 0);

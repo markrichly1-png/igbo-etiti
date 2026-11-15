@@ -80,7 +80,7 @@ useEffect(()=>{
               <span className="mt-2 block font-[500] text-gray-600">Local Government</span>
             </h1>
 
-            <p className="mt-5 bgMover text-transparent bg-clip-text bg-gradient-to-r from-transparent via-foreground/10 to-foreground/80 max-w-lg font-sans text-xl italic leading-snug  md:text-2xl">
+            <p className="mt-5 bgMover text-transparent bg-clip-text bg-gradient-to-r from-foreground/90 to-transparent max-w-lg font-sans text-xl italic leading-snug  md:text-2xl">
               {heroText}
             </p>
 
@@ -130,24 +130,24 @@ useEffect(()=>{
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <Link
                 href="/services"
-                className="inline-flex items-center gap-2 shadow-sm rounded-sm bg-[var(--gold)] px-5 py-3 text-sm font-semibold text-[#111] transition hover:brightness-110"
+                className="inline-flex items-center gap-2 shadow-sm rounded-lg border border-[var(--gold)] px-5 py-3 text-sm font-semibold text-[var(--gold)] transition hover:brightness-110"
               >
                 Access services
                 <ArrowUpRight className="h-4 w-4" />
               </Link>
               <Link
                 href="/verify"
-                className="inline-flex items-center gap-2 rounded-sm border border-border px-5 py-3 text-sm font-semibold text-foreground transition hover:border-[var(--gold)] shadow-sm hover:text-[var(--gold)]"
+                className="inline-flex items-center gap-2 rounded-lg border border-border px-5 py-3 text-sm font-semibold text-foreground transition hover:border-[var(--gold)] shadow-sm hover:text-[var(--gold)]"
               >
                 <ShieldCheck className="h-4 w-4" />
                 Verify a document
               </Link>
               <Link
                 href="/anonymous-message"
-                className="inline-flex items-center gap-2 px-2 py-3 text-sm font-semibold text-muted-foreground transition hover:text-[var(--gold)]"
+                className="inline-flex items-center rounded-lg border-b border-b-[2px] border-muted-foreground shadow-md gap-2 px-2 py-3 text-sm font-semibold text-muted-foreground transition hover:text-[var(--gold)]"
               >
                 
-                Write to Us
+                Write to us
                 <Pen className="h-4 w-4" />
               </Link>
             </div>
