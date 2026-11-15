@@ -75,7 +75,7 @@ useEffect(()=>{
           <div className="flex flex-col justify-center md:-mt-40">
             <p className="eyebrow text-gray-600">Enugu State, Nigeria</p>
 
-            <h1 className="mt-5 max-w-xl font-sans text-[2.75rem] font-black leading-[0.92] tracking-[-0.04em] text-foreground sm:text-5xl md:text-6xl lg:text-7xl">
+            <h1 className="mt-5 max-w-xl font-sans text-[2.75rem] text-center md:text-left font-black leading-[0.92] tracking-[-0.04em] text-foreground sm:text-5xl md:text-6xl lg:text-7xl">
               <span className="font-[800] scale-[1.4] text-40xl">Igbo-Etiti</span>
               <span className="mt-2 block font-[500] text-gray-600">Local Government</span>
             </h1>
@@ -100,7 +100,7 @@ useEffect(()=>{
                 alt=""
                 width={72}
                 height={72}
-                className="hero-portrait__seal rounded-full animate-pulse"
+                className="hero-portrait__seal rounded-full animateRotate"
               />
               <figcaption className="hero-portrait__caption">
                 
@@ -123,7 +123,7 @@ useEffect(()=>{
 
             
            
-            <p className="mt-4 hidden md:block max-w-lg text-base leading-relaxed text-muted-foreground md:text-lg">
+            <p className="mt-4 hidden md:block  max-w-lg text-base leading-relaxed text-muted-foreground md:text-lg itallics">
               The official e-governance portal for records, development updates, and direct contact with the administration in Ogbede.
             </p>
 

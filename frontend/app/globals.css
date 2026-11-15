@@ -64,6 +64,14 @@
 }
 
 .bgMover{ background-size:300% 100%;animation: moveBg 4s ease infinite;}
+
+@keyframes rotateInner {
+  100% { transform: rotate(540deg); }
+}
+
+.animateRotate {
+  animation: rotateInner 4s linear infinite;
+}
 :root {
   /* Black, white, deep orange-yellow */
 
