@@ -575,44 +575,13 @@
     min-height: 11.5rem;
     padding: 1.25rem;
     color: #111111;
-    background:
-      linear-gradient(165deg, rgba(255, 255, 255, 0.92) 0%, rgba(255, 255, 255, 0.72) 100%);
-    border: 1px solid color-mix(in oklch, var(--gold) 22%, var(--border));
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid color-mix(in oklch, var(--gold) 18%, var(--border));
     border-radius: 1.15rem;
-    box-shadow:
-      0 10px 30px rgba(70, 45, 10, 0.08),
-      inset 0 1px 0 rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(18px) saturate(1.35);
-    -webkit-backdrop-filter: blur(18px) saturate(1.35);
+    box-shadow: 0 10px 30px rgba(70, 45, 10, 0.06);
+    backdrop-filter: blur(10px) saturate(1.1);
+    -webkit-backdrop-filter: blur(10px) saturate(1.1);
     transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
-  }
-
-  .glass-card::before,
-  .glass-card::after {
-    content: '';
-    position: absolute;
-    z-index: 0;
-    border-radius: 999px;
-    pointer-events: none;
-    filter: blur(2px);
-  }
-
-  .glass-card::before {
-    width: 8.5rem;
-    height: 8.5rem;
-    top: -2.6rem;
-    right: -2rem;
-    background: radial-gradient(circle, color-mix(in oklch, var(--gold) 72%, white) 0%, transparent 72%);
-    opacity: 0.85;
-  }
-
-  .glass-card::after {
-    width: 9.5rem;
-    height: 9.5rem;
-    bottom: -3.2rem;
-    left: -2.4rem;
-    background: radial-gradient(circle, var(--faded-green) 0%, transparent 72%);
-    opacity: 0.7;
   }
 
   .glass-card > * {
@@ -626,36 +595,6 @@
     box-shadow:
       0 16px 36px rgba(70, 45, 10, 0.12),
       inset 0 1px 0 rgba(255, 255, 255, 0.95);
-  }
-
-  .glass-card:nth-child(2)::before {
-    top: auto;
-    bottom: -2.2rem;
-    right: -1.5rem;
-  }
-
-  .glass-card:nth-child(2)::after {
-    top: -2.8rem;
-    bottom: auto;
-    left: auto;
-    right: 30%;
-  }
-
-  .glass-card:nth-child(3)::before {
-    top: 30%;
-    right: auto;
-    left: -2.6rem;
-  }
-
-  .glass-card:nth-child(4)::before {
-    top: -1.8rem;
-    right: 20%;
-  }
-
-  .glass-card:nth-child(4)::after {
-    left: auto;
-    right: -2.8rem;
-    bottom: -2.4rem;
   }
 
   .glass-card__title {

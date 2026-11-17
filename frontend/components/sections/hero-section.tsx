@@ -98,7 +98,8 @@ useEffect(()=>{
               <Image
                 src="/coatOfArm.png"
                 alt=""
-                
+                height={30}
+                width={30}
                 className="hero-portrait__seal h-[30px] animate pulse opacity-60 w-[30px] md:h-[72px] md:w-[72px] rounded-full ani"
               />
               <figcaption className="hero-portrait__caption">
