@@ -176,6 +176,7 @@ export default function ServicesPage() {
             <Link href="/about" className="inline-flex items-center gap-2 text-sm font-semibold text-primary transition-colors hover:text-primary/80">
               Learn about us
               <ArrowRight className="h-4 w-4" />
+              
             </Link>
           </div>
         </div>
