@@ -1,167 +1,83 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import Image from 'next/image'
+import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { mockBlogPosts } from '@/lib/mock-data'
-import { Trash2, Edit, Plus, Search, Eye } from 'lucide-react'
-import { formatDistanceToNow } from 'date-fns'
+import { Badge } from '@/components/ui/badge'
+import { fetchNews } from '@/lib/api/newsApi'
+import { BlogPost } from '@/lib/types'
+import { CalendarDays, Eye, FileText, Plus, Search, Trash2 } from 'lucide-react'
+import { format } from 'date-fns'
 
 export default function AdminPostsPage() {
+  const [posts, setPosts] = useState<BlogPost[]>([])
   const [searchTerm, setSearchTerm] = useState('')
-  const [filter, setFilter] = useState<'all' | 'published' | 'draft'>('all')
+  const [category, setCategory] = useState('all')
+  const [loading, setLoading] = useState(true)
 
-  const filteredPosts = mockBlogPosts.filter((post) => {
-    const matchesSearch = post.title.toLowerCase().includes(searchTerm.toLowerCase())
-    const matchesFilter =
-      filter === 'all' || post.status === filter
-    return matchesSearch && matchesFilter
-  })
+  useEffect(() => {
+    fetchNews().then(setPosts).finally(() => setLoading(false))
+  }, [])
 
-  const handleDelete = (id: string) => {
-    console.log('Delete post:', id)
-  }
+  const categories = useMemo(() => [...new Set(posts.map((post) => post.category))], [posts])
+  const filteredPosts = useMemo(() => posts.filter((post) => {
+    const matchesSearch = post.title.toLowerCase().includes(searchTerm.toLowerCase()) || post.author.toLowerCase().includes(searchTerm.toLowerCase())
+    return matchesSearch && (category === 'all' || post.category === category)
+  }), [posts, searchTerm, category])
 
   return (
-    <div className="space-y-6">
-      {/* Header */}
-      <div className="flex items-center justify-between">
+    <div className="space-y-6 pb-8">
+      <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-primary">Blog Posts</h1>
-          <p className="text-foreground/70 mt-1">Manage all blog posts and news articles</p>
+          <p className="mb-2 text-xs font-bold uppercase tracking-[0.24em] text-primary">Publishing</p>
+          <h1 className="text-3xl font-bold tracking-tight md:text-4xl">News posts</h1>
+          <p className="mt-2 text-sm text-foreground/55">Manage articles published across the Igbo-Etiti newsroom.</p>
         </div>
-        <Link href="/admin/posts/new">
-          <Button className="flex items-center gap-2">
-            <Plus className="w-4 h-4" />
-            New Post
-          </Button>
-        </Link>
+        <Button asChild className="h-11 rounded-xl px-5"><Link href="/admin/posts/new"><Plus className="mr-2 h-4 w-4" />Create news post</Link></Button>
       </div>
 
-      {/* Filters */}
-      <Card className="border-border">
-        <CardContent className="pt-6">
-          <div className="space-y-4">
-            {/* Search */}
-            <div className="relative">
-              <Search className="absolute left-3 top-3 w-4 h-4 text-foreground/40" />
-              <Input
-                placeholder="Search posts..."
-                className="pl-10"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
-            </div>
-
-            {/* Status Filter */}
-            <div className="flex gap-2">
-              {(['all', 'published', 'draft'] as const).map((status) => (
-                <Button
-                  key={status}
-                  variant={filter === status ? 'default' : 'outline'}
-                  onClick={() => setFilter(status)}
-                  className="capitalize"
-                >
-                  {status}
-                </Button>
-              ))}
-            </div>
+      <Card className="overflow-hidden rounded-2xl border-border/70">
+        <CardContent className="flex flex-col gap-3 p-4 md:flex-row md:items-center">
+          <div className="relative flex-1"><Search className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-foreground/40" /><Input value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} placeholder="Search title or author" className="h-11 rounded-xl pl-10" /></div>
+          <div className="flex gap-2 overflow-x-auto">
+            {['all', ...categories].map((item) => (
+              <Button key={item} size="sm" variant={category === item ? 'default' : 'outline'} onClick={() => setCategory(item)} className="shrink-0 rounded-full capitalize">{item}</Button>
+            ))}
           </div>
         </CardContent>
       </Card>
 
-      {/* Posts Table */}
-      <Card className="border-border">
-        <CardHeader>
-          <CardTitle>Posts ({filteredPosts.length})</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr className="border-b border-border">
-                  <th className="text-left py-3 px-4 font-semibold text-foreground/70">Title</th>
-                  <th className="text-left py-3 px-4 font-semibold text-foreground/70">Category</th>
-                  <th className="text-left py-3 px-4 font-semibold text-foreground/70">Status</th>
-                  <th className="text-left py-3 px-4 font-semibold text-foreground/70">Published</th>
-                  <th className="text-right py-3 px-4 font-semibold text-foreground/70">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {filteredPosts.map((post) => (
-                  <tr
-                    key={post.id}
-                    className="border-b border-border hover:bg-muted/50 transition"
-                  >
-                    <td className="py-3 px-4">
-                      <p className="font-medium text-primary line-clamp-1">{post.title}</p>
-                      <p className="text-sm text-foreground/70 line-clamp-1">{post.content.substring(0, 50)}...</p>
-                    </td>
-                    <td className="py-3 px-4">
-                      <span className="text-sm text-foreground/70 capitalize">{post.category}</span>
-                    </td>
-                    <td className="py-3 px-4">
-                      <span
-                        className={`inline-block text-xs font-medium px-2 py-1 rounded capitalize ${
-                          post.status === 'published'
-                            ? 'bg-green-100 text-green-800'
-                            : 'bg-gray-100 text-gray-800'
-                        }`}
-                      >
-                        {post.status}
-                      </span>
-                    </td>
-                    <td className="py-3 px-4">
-                      <p className="text-sm text-foreground/70">
-                        {formatDistanceToNow(new Date(post.date), { addSuffix: true })}
-                      </p>
-                    </td>
-                    <td className="py-3 px-4">
-                      <div className="flex items-center justify-end gap-2">
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="flex items-center gap-2"
-                          asChild
-                        >
-                          <Link href={`/blog/${post.slug}`}>
-                            <Eye className="w-4 h-4" />
-                            <span className="hidden sm:inline">View</span>
-                          </Link>
-                        </Button>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="flex items-center gap-2"
-                        >
-                          <Edit className="w-4 h-4" />
-                          <span className="hidden sm:inline">Edit</span>
-                        </Button>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="text-red-500 hover:text-red-700 hover:bg-red-50"
-                          onClick={() => handleDelete(post.id)}
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </Button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-
-          {filteredPosts.length === 0 && (
-            <div className="text-center py-8">
-              <p className="text-foreground/70">No posts found</p>
-            </div>
-          )}
-        </CardContent>
-      </Card>
+      {loading ? (
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">{[1,2,3].map((item) => <div key={item} className="h-72 animate-pulse rounded-2xl bg-muted" />)}</div>
+      ) : filteredPosts.length > 0 ? (
+        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+          {filteredPosts.map((post) => (
+            <Card key={post.id} className="group overflow-hidden rounded-2xl border-border/70 py-0 shadow-[0_8px_30px_rgba(30,41,59,.04)]">
+              <div className="relative h-52 overflow-hidden bg-muted">
+                {post.coverImage.includes('.mp4') ? <video src={post.coverImage} muted loop autoPlay className="h-full w-full object-cover" /> : <Image src={post.coverImage} alt={post.title} fill className="object-cover transition duration-500 group-hover:scale-[1.03]" sizes="(max-width:768px) 100vw, 33vw" />}
+                <Badge className="absolute left-4 top-4 rounded-full bg-white/95 text-[#17201c] shadow-sm">{post.category}</Badge>
+              </div>
+              <CardContent className="p-5">
+                <div className="mb-3 flex items-center gap-2 text-xs text-foreground/50"><CalendarDays className="h-3.5 w-3.5" /><span>{format(post.date, 'MMM d, yyyy')}</span><span>•</span><span>Published</span></div>
+                <h2 className="line-clamp-2 min-h-12 text-lg font-bold leading-6">{post.title}</h2>
+                <p className="mt-2 line-clamp-2 text-sm leading-6 text-foreground/55">{post.content}</p>
+                <div className="mt-5 flex items-center justify-between border-t border-border/70 pt-4">
+                  <p className="max-w-[55%] truncate text-xs font-medium text-foreground/50">By {post.author}</p>
+                  <div className="flex items-center gap-1">
+                    <Button variant="ghost" size="sm" asChild className="rounded-lg"><Link href={`/blog/${post.slug}`}><Eye className="mr-1.5 h-4 w-4" />View</Link></Button>
+                    <Button variant="ghost" size="sm" title="Delete post" className="rounded-lg text-destructive hover:bg-destructive/5 hover:text-destructive" onClick={() => setPosts((current) => current.filter((item) => item.id !== post.id))}><Trash2 className="h-4 w-4" /></Button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      ) : (
+        <Card className="rounded-2xl border-dashed"><CardContent className="py-16 text-center"><FileText className="mx-auto h-8 w-8 text-foreground/25" /><p className="mt-3 font-semibold">No news posts found</p><p className="mt-1 text-sm text-foreground/50">Try another search or publish a new article.</p></CardContent></Card>
+      )}
     </div>
   )
 }

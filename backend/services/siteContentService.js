@@ -105,6 +105,12 @@ class SiteContentService {
     })
   }
 
+  static async deleteNews({ id }) {
+    return prisma.siteContentUpload.delete({
+      where: { id },
+    })
+  }
+
   static async listByType(type) {
     return prisma.siteContentUpload.findMany({
       where: type ? { type } : undefined,

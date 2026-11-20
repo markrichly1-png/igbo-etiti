@@ -26,7 +26,7 @@ const navItems = [
   { href: '/admin/applications', label: 'Applications', icon: FileText },
   { href: '/admin/payments', label: 'Payments', icon: FileText },
   { href: '/admin/messages', label: 'Anonymous Messages', icon: MessageCircle },
-  { href: '/admin/blog', label: 'Blog Posts', icon: FileText },
+  { href: '/admin/posts', label: 'News Posts', icon: FileText },
   { href: '/admin/archive', label: 'Archive', icon: FileText },
   { href: '/admin/gallery', label: 'Gallery', icon: Image },
   { href: '/admin/staff', label: 'Staff Directory', icon: Users },
