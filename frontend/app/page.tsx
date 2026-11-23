@@ -21,7 +21,7 @@ export default function Home() {
         <section className="landing-band">
           <div className="landing-band-content">
             {/* <ChairmanMessage /> */}
-            <StatsSection />
+        
           </div>
         </section>
         <AnnouncementsSection />
